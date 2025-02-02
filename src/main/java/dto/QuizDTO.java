@@ -34,6 +34,13 @@ public class QuizDTO {
         this.questionIds = questionIds;
     }
 
+    public QuizDTO(Long id, String quizName, String creatorName) {
+        this.id = id;
+        this.quizName = quizName;
+        this.creatorName = creatorName;
+
+    }
+
     // Getters and Setters
     public Long getId() {
         return id;

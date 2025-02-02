@@ -8,6 +8,10 @@ public class QuestionDto {
     private String questionText;
     private String creatorUsername;
 
+    public QuestionDto() {
+
+    }
+
     public QuestionDto(Long id, String questionText, String creatorUsername) {
         this.id = id;
         this.questionText = questionText;

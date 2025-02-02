@@ -65,14 +65,11 @@ public class QuestionDAO {
 
     public List<Question> getAllQuestionsForQuiz(Long quizId) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-
-        List<Question> questions = entityManager.createQuery(
-                "SELECT q FROM Question q LEFT JOIN FETCH q.quizzes WHERE q.id IN "
-                        + "(SELECT q2.id FROM Question q2 JOIN q2.quizzes qu WHERE qu.id = :quizId)",
-                Question.class)
+        List<Question> questions = entityManager
+                .createQuery("SELECT q FROM Question q JOIN FETCH q.quizzes quiz WHERE quiz.id = :quizId",
+                        Question.class)
                 .setParameter("quizId", quizId)
                 .getResultList();
-
         entityManager.close();
         return questions;
     }
