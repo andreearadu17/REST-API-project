@@ -91,7 +91,7 @@ public class QuizDAO {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
         Quiz quiz = entityManager.createQuery(
-                "SELECT q FROM Quiz q JOIN FETCH q.quizCreator WHERE q.id = :quizId", Quiz.class)
+                "SELECT q FROM Quiz q JOIN FETCH q.quizCreator WHERE q.quizCreator.id = :userId", Quiz.class)
                 .setParameter("quizId", quizId)
                 .getSingleResult();
 
