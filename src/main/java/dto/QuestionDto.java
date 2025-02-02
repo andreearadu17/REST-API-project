@@ -7,6 +7,7 @@ public class QuestionDto {
     private Long id;
     private String questionText;
     private String creatorUsername;
+    // private String answer;
 
     public QuestionDto() {
 
@@ -23,7 +24,7 @@ public class QuestionDto {
         this.id = question.getId();
         this.questionText = question.getQText();
         this.creatorUsername = question.getCreator().getUsername();
-
+        // this.answer = question.getAnswer();
     }
 
     // Getters and setters
