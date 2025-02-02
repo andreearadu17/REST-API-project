@@ -6,6 +6,9 @@ import model.QuizCreator;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
+import org.mindrot.jbcrypt.BCrypt;
+
 import javax.ws.rs.core.Context;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -25,12 +28,12 @@ public class LoginController {
         QuizCreator user = userDAO.getUserByUsername(username);
 
         // If user is found and password matches
-        if (user != null && user.getPassword().equals(password)) {
+        if (user != null && BCrypt.checkpw(password, user.getPassword())) {
             // Create a new session for the logged-in user
             HttpSession session = request.getSession(true); // 'true' creates a new session if one doesn't exist
             session.setAttribute("loggedInUser", user); // Save the logged-in user in the session
 
-            return Response.ok(user).build(); // Return the user object in the response
+            return Response.ok(user.getQuiz_creator_id()).build(); // Return the user object in the response
         } else {
             // If authentication fails, return Unauthorized status with an empty user object
             return Response.status(Response.Status.UNAUTHORIZED)

@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import org.mindrot.jbcrypt.BCrypt;
 
 public class UserDAOImpl implements UserDAO {
     private EntityManagerFactory entityManagerFactory;
@@ -30,12 +31,21 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public void insertUser(QuizCreator newUser) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-        entityManager.getTransaction().begin();
+        try {
+            entityManager.getTransaction().begin();
 
-        entityManager.persist(newUser);
+            // Hash the password before saving
+            String hashedPassword = BCrypt.hashpw(newUser.getPassword(), BCrypt.gensalt());
+            newUser.setPassword(hashedPassword);
 
-        entityManager.getTransaction().commit();
-        entityManager.close();
+            entityManager.persist(newUser);
+            entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            entityManager.getTransaction().rollback();
+            e.printStackTrace();
+        } finally {
+            entityManager.close();
+        }
     }
 
     @Override
