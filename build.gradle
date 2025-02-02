@@ -1,0 +1,29 @@
+apply plugin: 'java'
+apply plugin: 'jacoco'
+apply plugin: 'war'
+
+
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    providedCompile 'javax:javaee-web-api:8.0'
+    implementation 'javax.servlet:jstl:1.2'
+    testImplementation     'junit:junit:4.13'
+    // implementation 'mysql:mysql-connector-java:8.0.17'
+    implementation 'javax.persistence:javax.persistence-api:2.2'
+    implementation 'org.hibernate:hibernate-core:5.6.0.Final'
+    implementation files('libs/postgresql-42.7.5.jar')
+    implementation 'org.glassfish.jersey.core:jersey-server:2.34'
+    implementation 'org.glassfish.jersey.containers:jersey-container-servlet:2.34'
+    implementation 'org.glassfish.jersey.media:jersey-media-json-jackson:2.34'
+    implementation("org.glassfish.jersey.inject:jersey-hk2:2.34")
+     // Jackson dependencies
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.3'
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.12.3'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.12.3'
+}
+
+
